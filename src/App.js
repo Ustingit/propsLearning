@@ -50,7 +50,18 @@ class Home extends React.Component {
     const { checked, name, value, type } = e.target;
     const valueToUpdate = type === 'checkbox' ? checked : value;
     this.setState({
-      [name]: valueToUpdate,
+      [name]: valueToUpdate      
+    }, () => this.logFields())
+    this.handleCounter()
+  }
+
+  logFields = () => {
+    const { firstName, lastName } = this.state;
+    console.log('Name: ', `${firstName} ${lastName}.`)
+  }
+
+  handleCounter = () => {
+    this.setState({
       counter: this.state.counter + 1
     })
   }
