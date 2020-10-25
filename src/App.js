@@ -22,7 +22,11 @@ function getRandomInt(min, max) {
 
 class Home extends React.Component {
   state = {
-    magicNumber: 23
+    magicNumber: 23,
+    firstName: '',
+    lastName: '',
+    isValid: false,
+    counter: 0
   }
 
   componentDidMount() {
@@ -42,10 +46,42 @@ class Home extends React.Component {
     })
   }
 
+  handleFormChange = (e) => {
+    const { checked, name, value, type } = e.target;
+    const valueToUpdate = type === 'checkbox' ? checked : value;
+    this.setState({
+      [name]: valueToUpdate,
+      counter: this.state.counter + 1
+    })
+  }
+
   render() {
     return(
       <div className="Home">
           <h1>Home Component</h1>
+          <div>
+            <h3>User info: </h3>
+              <div> {this.state.firstName}</div>
+              <div> {this.state.lastName}</div>
+              <div> { this.state.isValid ? "Да" : "Нет" }</div>
+              <div> { this.state.counter }</div>
+          </div>
+          <hr />
+          <div>
+            <h3>Form:</h3>
+            <div>
+              <label for="firstName" >First name:</label>
+              <input type="text" name="firstName" onChange={ this.handleFormChange } />
+              <label for="lastName" >Last name:</label>
+              <input type="text" name="lastName" onChange={ this.handleFormChange } />
+              <label for="isValid" >The info is valid:</label>
+              <input type="checkbox" name="isValid" value={this.state.isValid} onChange={ this.handleFormChange } />
+            </div>
+          </div>
+
+
+
+          <hr />
           <h3>Hey! I am the Home Component</h3>
           <p>and I'm generating this magicNumber inside my life-cycle</p>
           {this.state.magicNumber}
